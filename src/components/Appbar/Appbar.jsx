@@ -1,4 +1,17 @@
-import React from 'react';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
 import Navigation from 'components/Navigation/Navigation';
 import UserMenu from 'components/UserMenu/UserMenu';
 import { useSelector } from 'react-redux';
@@ -9,15 +22,18 @@ export default function Appbar() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
-    <div>
+    <AppBar position="static" sx={{ minHeight: 56 }}>
       {isLoggedIn ? (
-        <>
-          <Link to="/contacts">Contacts</Link>
-          <UserMenu />
-        </>
+        <Container maxWidth="xl">
+          <>
+            <UserMenu />
+          </>
+        </Container>
       ) : (
-        <Navigation />
+        <Container maxWidth="xl">
+          <Navigation />
+        </Container>
       )}
-    </div>
+    </AppBar>
   );
 }

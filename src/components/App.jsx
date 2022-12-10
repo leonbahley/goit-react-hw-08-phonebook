@@ -1,6 +1,6 @@
-import Form from './Form/Form';
 import Filter from './Filter/Filter';
 import ContactList from 'components/ContactList/ContactList';
+import Container from '@mui/material/Container';
 import { Suspense } from 'react';
 import { useAuth } from 'hooks/useAuth';
 import { lazy } from 'react';
@@ -18,6 +18,7 @@ import { refreshUser } from 'redux/auth/operations';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
 
+// const Form = lazy(() => import('components/Form/Form'));
 const Contacts = lazy(() => import('pages/Contacts/Contacts'));
 const RegisterForm = lazy(() => import('pages/RegisterForm/Registerform'));
 const LoginForm = lazy(() => import('pages/LoginForm/LoginForm'));
@@ -46,7 +47,15 @@ export const App = () => {
           <Appbar />
           <Suspense fallback={null}>
             <Routes>
-              <Route path="/" element={<Layout />} />
+              <Route
+                path="/"
+                element={
+                  <RestrictedRoute
+                    redirectTo="/contacts"
+                    component={<LoginForm />}
+                  />
+                }
+              />
               <Route
                 path="/register"
                 element={
@@ -71,6 +80,7 @@ export const App = () => {
                   <PrivateRoute redirectTo="/login" component={<Contacts />} />
                 }
               />
+              {/* </Route> */}
             </Routes>
           </Suspense>
         </>
