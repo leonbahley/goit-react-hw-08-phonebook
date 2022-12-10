@@ -5,7 +5,8 @@ import { fetchContacts } from 'redux/contacts/operations';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { useEffect } from 'react';
 import Container from '@mui/material/Container';
-import { getContacts } from 'redux/contacts/selectors';
+import { getContacts, getContactsToRender } from 'redux/contacts/selectors';
+import Filter from 'components/Filter/Filter';
 import { editContact } from 'redux/contacts/operations';
 import { deleteContact } from 'redux/contacts/operations';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
@@ -51,8 +52,8 @@ const style = {
 
 export default function Contacts() {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  console.log('contacts', contacts);
+
+  const contacts = useSelector(getContactsToRender);
   const [modalOpen, setModalOpen] = React.useState(false);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
@@ -98,6 +99,7 @@ export default function Contacts() {
   return (
     <Container sx={{ mt: 2 }} maxWidth="xl">
       <Form />
+      <Filter />
       <List>
         {contacts.map(({ name, number, id }) => (
           <ListItem sx={{ display: 'flex', alignItems: 'center' }} key={id}>
@@ -134,23 +136,29 @@ export default function Contacts() {
           <Box
             onSubmit={handleEdit}
             component="form"
-            sx={{
-              '& > :not(style)': { m: 1, width: '25ch' },
-            }}
+            // sx={{
+            //   '& > :not(style)': { m: 1, width: '25ch' },
+            // }}
             noValidate
             autoComplete="off"
           >
-            <TextField name="name" id="outlined-name" label="Name" />
+            <TextField fullWidth name="name" id="outlined-name" label="Name" />
             <TextField
               margin="normal"
               type="tel"
               name="number"
               id="outlined-name"
               label="Number"
+              fullWidth
             />
 
             <Button
-              sx={{ minHeight: '56px' }}
+              sx={{
+                minHeight: '56px',
+                display: 'block',
+                ml: 'auto',
+                mr: 'auto',
+              }}
               type="submit"
               variant="contained"
             >

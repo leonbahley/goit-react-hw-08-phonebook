@@ -48,9 +48,10 @@ function Form() {
     <Box
       onSubmit={handleSubmit}
       component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
+      sx={{ display: 'flex', gap: 2, mb: 1 }}
+      // sx={{
+      //   '& > :not(style)': { m: 1, width: '25ch' },
+      // }}
       noValidate
       autoComplete="off"
     >
