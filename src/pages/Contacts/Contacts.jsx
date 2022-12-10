@@ -55,8 +55,8 @@ export default function Contacts() {
 
   const contacts = useSelector(getContactsToRender);
   const [modalOpen, setModalOpen] = React.useState(false);
-  const handleOpen = () => setModalOpen(true);
-  const handleClose = () => setModalOpen(false);
+
+  // const handleClose = () => setModalOpen(false);
   const [idToEdit, setIdToEdit] = React.useState('');
 
   //   function generate(element) {
@@ -77,23 +77,29 @@ export default function Contacts() {
     dispatch(deleteContact(id));
   };
 
-  const handleEdit = event => {
-    console.log('idToEdit////////////', idToEdit);
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  // const handleEdit = event => {
+  //   console.log('idToEdit////////////', idToEdit);
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
 
-    dispatch(
-      editContact({
-        name: data.get('name'),
-        number: data.get('number'),
-        contactId: idToEdit,
-      })
-    );
-    handleClose();
-  };
+  //   dispatch(
+  //     editContact({
+  //       name: data.get('name'),
+  //       number: data.get('number'),
+  //       contactId: idToEdit,
+  //     })
+  //   );
+  //   handleClose();
+  // };
   const handleEditClick = id => {
-    handleOpen();
+    setModalOpen(true);
     setIdToEdit(id);
+  };
+
+  const handleModalClose = ({ target: { id } }) => {
+    if (id === 'backdrop') {
+      setModalOpen(false);
+    }
   };
 
   return (
@@ -126,47 +132,14 @@ export default function Contacts() {
           </ListItem>
         ))}
       </List>
-      <Modal
+      {modalOpen && <EditModal closeModal={handleModalClose} id={idToEdit} />}
+      {/* <Modal
         open={modalOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Box
-            onSubmit={handleEdit}
-            component="form"
-            // sx={{
-            //   '& > :not(style)': { m: 1, width: '25ch' },
-            // }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField fullWidth name="name" id="outlined-name" label="Name" />
-            <TextField
-              margin="normal"
-              type="tel"
-              name="number"
-              id="outlined-name"
-              label="Number"
-              fullWidth
-            />
-
-            <Button
-              sx={{
-                minHeight: '56px',
-                display: 'block',
-                ml: 'auto',
-                mr: 'auto',
-              }}
-              type="submit"
-              variant="contained"
-            >
-              Edit contact
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
+      > */}
+      {/* </Modal> */}
     </Container>
   );
 }
