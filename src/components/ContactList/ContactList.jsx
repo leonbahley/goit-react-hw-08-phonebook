@@ -1,15 +1,21 @@
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContactsToRender } from 'redux/selectors';
-import { deleteContact } from 'redux/operations';
+import { getContactsToRender } from 'redux/contacts/selectors';
+import { deleteContact } from 'redux/contacts/operations';
+import { fetchContacts } from 'redux/contacts/operations';
+import { useEffect } from 'react';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContactsToRender);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <>
-      <ul className={css.List}>
+      your contact list
+      {/* <ul className={css.List}>
         {contacts &&
           contacts.map(({ id, name, number }) => (
             <li className={css.ListItem} id={id} key={id}>
@@ -23,7 +29,7 @@ const ContactList = () => {
               </button>
             </li>
           ))}
-      </ul>
+      </ul> */}
     </>
   );
 };
