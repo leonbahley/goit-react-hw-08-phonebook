@@ -5,8 +5,6 @@ import {
   deleteContact,
   editContact,
 } from './operations';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 const handlePending = state => {
   state.isLoading = true;
@@ -49,7 +47,6 @@ const contactsSlice = createSlice({
       state.items.splice(index, 1);
     },
     [deleteContact.rejected]: handleRejected,
-    // test
     [editContact.pending]: handlePending,
     [editContact.fulfilled](state, action) {
       state.isLoading = false;
@@ -57,8 +54,6 @@ const contactsSlice = createSlice({
       const index = state.items.findIndex(
         contact => contact.id === action.payload.id
       );
-      console.log('action', action);
-      // state.items.splice(index, 1);
       state.items[index].name = action.payload.name;
       state.items[index].number = action.payload.number;
     },

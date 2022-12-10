@@ -1,26 +1,24 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
-
 import * as React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
-import Form from 'components/Form/Form';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 const theme = createTheme();
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -31,18 +29,6 @@ const LoginForm = () => {
       })
     );
   };
-
-  //   const handleSubmit = e => {
-  //     e.preventDefault();
-  //     const form = e.currentTarget;
-  //     dispatch(
-  //       logIn({
-  //         email: form.elements.email.value,
-  //         password: form.elements.password.value,
-  //       })
-  //     );
-  //     form.reset();
-  //   };
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,12 +52,13 @@ const LoginForm = () => {
           <Box
             component="form"
             onSubmit={handleSubmit}
-            noValidate
+            validate="true"
             sx={{ mt: 1 }}
           >
             <TextField
               margin="normal"
               required
+              type="email"
               fullWidth
               id="email"
               label="Email Address"
@@ -109,17 +96,6 @@ const LoginForm = () => {
         </Box>
       </Container>
     </ThemeProvider>
-    // <form onSubmit={handleSubmit} autoComplete="off">
-    //   <label>
-    //     Email
-    //     <input type="email" name="email" />
-    //   </label>
-    //   <label>
-    //     Password
-    //     <input type="password" name="password" />
-    //   </label>
-    //   <button type="submit">Log In</button>
-    // </form>
   );
 };
 

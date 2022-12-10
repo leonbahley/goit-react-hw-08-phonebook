@@ -1,11 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import { editContact } from 'redux/contacts/operations';
+import PropTypes from 'prop-types';
 
 const style = {
   position: 'absolute',
@@ -19,14 +18,12 @@ const style = {
   p: 4,
 };
 
-export default function EditModal({ id, closeModal }) {
-  // const [open, setOpen] = React.useState(false);
+export default function EditModal({ id, closeModal, closeModalOnSubmit }) {
   const dispatch = useDispatch();
-  console.log('id))))))))))))))', id);
+
   const handleEdit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
     dispatch(
       editContact({
         name: data.get('name'),
@@ -34,7 +31,7 @@ export default function EditModal({ id, closeModal }) {
         contactId: id,
       })
     );
-    // handleClose();
+    closeModalOnSubmit();
   };
 
   return (
@@ -51,14 +48,18 @@ export default function EditModal({ id, closeModal }) {
         <Box
           onSubmit={handleEdit}
           component="form"
-          // sx={{
-          //   '& > :not(style)': { m: 1, width: '25ch' },
-          // }}
-          noValidate
+          validate="true"
           autoComplete="off"
         >
-          <TextField fullWidth name="name" id="outlined-name" label="Name" />
           <TextField
+            required
+            fullWidth
+            name="name"
+            id="outlined-name"
+            label="Name"
+          />
+          <TextField
+            required
             margin="normal"
             type="tel"
             name="number"
@@ -84,3 +85,8 @@ export default function EditModal({ id, closeModal }) {
     </div>
   );
 }
+
+EditModal.propTypes = {
+  id: PropTypes.string.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};

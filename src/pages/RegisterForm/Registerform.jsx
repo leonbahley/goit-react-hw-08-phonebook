@@ -6,8 +6,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -20,6 +18,7 @@ const theme = createTheme();
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -32,19 +31,6 @@ const RegisterForm = () => {
       })
     );
   };
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   const form = e.currentTarget;
-  //   dispatch(
-  //     register({
-  // name: data.get('name'),
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //     })
-  //   );
-  //   form.reset();
-  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,7 +52,7 @@ const RegisterForm = () => {
           </Typography>
           <Box
             component="form"
-            noValidate
+            validate="true"
             onSubmit={handleSubmit}
             sx={{ mt: 3 }}
           >
@@ -81,20 +67,11 @@ const RegisterForm = () => {
                   autoFocus
                 />
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid> */}
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
+                  type="email"
                   id="email"
                   label="Email Address"
                   name="email"
@@ -112,14 +89,6 @@ const RegisterForm = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -140,21 +109,6 @@ const RegisterForm = () => {
         </Box>
       </Container>
     </ThemeProvider>
-    // <form onSubmit={handleSubmit} autoComplete="off">
-    //   <label>
-    //     Username
-    //     <input type="text" name="name" />
-    //   </label>
-    //   <label>
-    //     Email
-    //     <input type="email" name="email" />
-    //   </label>
-    //   <label>
-    //     Password
-    //     <input type="password" name="password" />
-    //   </label>
-    //   <button type="submit">Register</button>
-    // </form>
   );
 };
 
