@@ -16,6 +16,7 @@ function Form() {
         number: data.get('number'),
       })
     );
+    event.currentTarget.reset();
   };
 
   return (
