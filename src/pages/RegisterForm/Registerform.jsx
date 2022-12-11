@@ -82,6 +82,7 @@ const RegisterForm = () => {
                 <TextField
                   required
                   fullWidth
+                  inputProps={{ minLength: 7 }}
                   name="password"
                   label="Password"
                   type="password"
