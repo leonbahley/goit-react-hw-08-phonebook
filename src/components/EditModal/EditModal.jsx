@@ -89,4 +89,5 @@ export default function EditModal({ id, closeModal, closeModalOnSubmit }) {
 EditModal.propTypes = {
   id: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
+  closeModalOnSubmit: PropTypes.func.isRequired,
 };

@@ -10,6 +10,7 @@ import { refreshUser } from 'redux/auth/operations';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
 import { getError } from 'redux/contacts/selectors';
+import LinearColor from './Loader/Loader';
 
 const Contacts = lazy(() => import('pages/Contacts/Contacts'));
 const RegisterForm = lazy(() => import('pages/RegisterForm/Registerform'));
@@ -28,7 +29,7 @@ export const App = () => {
     <>
       {error && <b>{error}</b>}
       {isRefreshing ? (
-        <b>Refreshing user</b>
+        <LinearColor />
       ) : (
         <>
           <Appbar />
@@ -65,6 +66,15 @@ export const App = () => {
                 path="/contacts"
                 element={
                   <PrivateRoute redirectTo="/login" component={<Contacts />} />
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <RestrictedRoute
+                    redirectTo="/contacts"
+                    component={<LoginForm />}
+                  />
                 }
               />
             </Routes>

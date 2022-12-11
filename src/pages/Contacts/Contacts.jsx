@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'redux/contacts/operations';
+import { getIsLoading } from 'redux/contacts/selectors';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { useEffect } from 'react';
 import Container from '@mui/material/Container';
@@ -14,10 +15,12 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditModal from 'components/EditModal/EditModal';
+import LinearColor from 'components/Loader/Loader';
 
 export default function Contacts() {
   const dispatch = useDispatch();
   const contacts = useSelector(getContactsToRender);
+  const loading = useSelector(getIsLoading);
 
   const [modalOpen, setModalOpen] = React.useState(false);
   const [idToEdit, setIdToEdit] = React.useState('');
@@ -49,6 +52,7 @@ export default function Contacts() {
     <Container sx={{ mt: 2 }} maxWidth="xl">
       <Form />
       <Filter />
+      {loading && <LinearColor />}
       <List>
         {contacts.map(({ name, number, id }) => (
           <ListItem sx={{ display: 'flex', alignItems: 'center' }} key={id}>
