@@ -55,18 +55,25 @@ export default function Contacts() {
       {loading && <LinearColor />}
       <List>
         {contacts.map(({ name, number, id }) => (
-          <ListItem sx={{ display: 'flex', alignItems: 'center' }} key={id}>
-            <ContactPhoneIcon sx={{ mr: 1 }} />
+          <ListItem
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              borderBottom: '1px solid #000',
+            }}
+            key={id}
+          >
+            <ContactPhoneIcon fontSize="large" sx={{ mr: 1 }} />
             <p>
               {name} {number}
             </p>
             <IconButton
               onClick={() => handleDelete(id)}
-              sx={{ ml: 2 }}
+              sx={{ ml: 'auto' }}
               edge="end"
               aria-label="delete"
             >
-              <DeleteIcon />
+              <DeleteIcon fontSize="large" />
             </IconButton>
             <IconButton
               sx={{ ml: 2 }}
@@ -74,7 +81,7 @@ export default function Contacts() {
               aria-label="delete"
               onClick={() => handleEditClick(id)}
             >
-              <ModeEditIcon />
+              <ModeEditIcon fontSize="large" />
             </IconButton>
           </ListItem>
         ))}

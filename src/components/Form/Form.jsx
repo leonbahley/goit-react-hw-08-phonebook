@@ -1,15 +1,25 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import { getContacts } from 'redux/contacts/selectors';
 
 function Form() {
   const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const handleSubmit = event => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    if (
+      contacts.some(
+        ({ name }) => name.toLowerCase() === data.get('name').toLowerCase()
+      )
+    ) {
+      alert(`${data.get('name')} is already in your contacts list`);
+      return;
+    }
     dispatch(
       addContact({
         name: data.get('name'),
