@@ -111,4 +111,8 @@ EditModal.propTypes = {
   id: PropTypes.string.isRequired,
   closeModal: PropTypes.func.isRequired,
   closeModalOnSubmit: PropTypes.func.isRequired,
+  modalInfo: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }).isRequired,
 };
