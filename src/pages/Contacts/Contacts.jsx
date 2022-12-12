@@ -21,7 +21,10 @@ export default function Contacts() {
   const dispatch = useDispatch();
   const contacts = useSelector(getContactsToRender);
   const loading = useSelector(getIsLoading);
-
+  const [modalCredentials, setModalCredentials] = React.useState({
+    name: '',
+    number: '',
+  });
   const [modalOpen, setModalOpen] = React.useState(false);
   const [idToEdit, setIdToEdit] = React.useState('');
 
@@ -33,9 +36,10 @@ export default function Contacts() {
     dispatch(deleteContact(id));
   };
 
-  const handleEditClick = id => {
+  const handleEditClick = (id, name, number) => {
     setModalOpen(true);
     setIdToEdit(id);
+    setModalCredentials({ name, number });
   };
 
   const handleModalClose = ({ target: { id } }) => {
@@ -79,7 +83,7 @@ export default function Contacts() {
               sx={{ ml: 2 }}
               edge="end"
               aria-label="delete"
-              onClick={() => handleEditClick(id)}
+              onClick={() => handleEditClick(id, name, number)}
             >
               <ModeEditIcon fontSize="large" />
             </IconButton>
@@ -88,6 +92,7 @@ export default function Contacts() {
       </List>
       {modalOpen && (
         <EditModal
+          modalInfo={modalCredentials}
           closeModal={handleModalClose}
           id={idToEdit}
           closeModalOnSubmit={handleModalCloseOnSubmit}

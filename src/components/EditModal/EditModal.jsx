@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import { editContact } from 'redux/contacts/operations';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 const style = {
   position: 'absolute',
@@ -18,8 +19,14 @@ const style = {
   p: 4,
 };
 
-export default function EditModal({ id, closeModal, closeModalOnSubmit }) {
+export default function EditModal({
+  id,
+  closeModal,
+  closeModalOnSubmit,
+  modalInfo: { name, number },
+}) {
   const dispatch = useDispatch();
+  const [modalCredentials, setModalCredentials] = useState({ name, number });
 
   const handleEdit = event => {
     event.preventDefault();
@@ -52,6 +59,13 @@ export default function EditModal({ id, closeModal, closeModalOnSubmit }) {
           autoComplete="off"
         >
           <TextField
+            onChange={e =>
+              setModalCredentials({
+                ...modalCredentials,
+                name: e.target.value,
+              })
+            }
+            value={modalCredentials.name}
             required
             fullWidth
             name="name"
@@ -59,6 +73,13 @@ export default function EditModal({ id, closeModal, closeModalOnSubmit }) {
             label="Name"
           />
           <TextField
+            onChange={e =>
+              setModalCredentials({
+                ...modalCredentials,
+                number: e.target.value,
+              })
+            }
+            value={modalCredentials.number}
             required
             margin="normal"
             type="tel"

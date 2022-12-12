@@ -17,7 +17,7 @@ export default function ClearAllBtn() {
   }
 
   const deleteAll = () => {
-    if (contactsIds !== 0) {
+    if (contactsIds.length !== 0) {
       contactsIds.forEach(contactId => {
         dispatch(deleteContact(contactId));
       });
